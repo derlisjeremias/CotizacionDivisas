@@ -4,15 +4,8 @@
  */
 package laboratoriouno.cotizaciondivisas;
 
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.JScrollPane;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.JOptionPane;
-import java.awt.*;
-import java.awt.event.*;
 
 /**
  *
@@ -20,19 +13,17 @@ import java.awt.event.*;
  */
 public class ModeloTablaCotizacion implements javax.swing.table.TableModel {
 
-    public static final int INDICE_MONEDA = 0;
-    public static final int INDICE_CAMBIO = 1;
-    protected String[] nombreColumnas;
-    protected Object[] datos;
+    protected String[] nombreColumnas = {"Moneda", "Cotización"};
+    protected Object[][] datos;
+    protected TableModelListener listener;
+    protected TableModelEvent event = new TableModelEvent(this);
 
     public ModeloTablaCotizacion() {
-        this.nombreColumnas = new String[]{"Moneda", "Cambio"};
-        this.datos = new Object[0];
-        //this.datos[0]=new DatosMoneda("ARS","Pesos");
+        this.datos = new Object[0][2];
     }
 
     public int getRowCount() {
-        return datos.length;
+        return this.datos.length;
     }
 
     public int getColumnCount() {
@@ -52,65 +43,38 @@ public class ModeloTablaCotizacion implements javax.swing.table.TableModel {
     }
 
     public Object getValueAt(int rowIndex, int columnIndex) {
-        DatosMoneda aux = (DatosMoneda) (datos[rowIndex]);
-        /*if (columnIndex == INDICE_MONEDA) {
-
-         return aux.getSiglas();
-         }
-         if (columnIndex == INDICE_CAMBIO) {
-
-         return aux.getDescripcion();
-         }
-
-         throw new IllegalArgumentException("unknown column identifier: " + columnIndex);*/
-        switch (columnIndex) {
-            case INDICE_MONEDA:
-                return aux.getSiglas();
-            case INDICE_CAMBIO:
-                return aux.getDescripcion();
-            default:
-                return new Object();
-        }
+        return this.datos[rowIndex][columnIndex];
     }
 
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-
-        DatosMoneda aux = (DatosMoneda) (datos[rowIndex]);
-        /*if (columnIndex == INDICE_MONEDA) {
-
-         aux.setSiglas((String) aValue);
-         }
-         if (columnIndex == INDICE_CAMBIO) {
-
-         aux.setDescripcion((String) aValue);
-         }
-
-         throw new UnsupportedOperationException("unknown column identifier: " + columnIndex);*/
-        switch (columnIndex) {
-            case INDICE_MONEDA:
-                aux.setSiglas((String) aValue);
-                break;
-            case INDICE_CAMBIO:
-                aux.setDescripcion((String) aValue);
-                break;
-            default:
-                System.out.println("invalid index");
-        }
+            Moneda aux = (Moneda) aValue;
+            if (columnIndex == 0) {
+                this.datos[rowIndex][columnIndex] = aux.getSiglas();
+            }
+            if (columnIndex == 1) {
+                this.datos[rowIndex][columnIndex] = aux.getCambio();
+            }
+        listener.tableChanged(event);
     }
+
     public void addRow() {
         int r = this.getRowCount();
         r++;
-        Object[] d = new Object[r];
-        for (int i=0;i<=this.getRowCount();i++){
-            d[i]=this.datos[i];
+        Object[][] d = new Object[r][2];
+        int i = 0;
+        while (i < r-1) {
+            d[i][0] = this.datos[i][0];
+            d[i][1] = this.datos[i][1];
+            i++;
         }
-        this.datos = d; 
+        this.datos = d;
+        listener.tableChanged(event);
     }
+
     public void addTableModelListener(TableModelListener l) {
+        listener = l;
     }
 
     public void removeTableModelListener(TableModelListener l) {
     }
-
-
 }

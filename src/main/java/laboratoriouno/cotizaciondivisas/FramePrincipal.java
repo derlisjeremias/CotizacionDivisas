@@ -4,7 +4,7 @@
  */
 package laboratoriouno.cotizaciondivisas;
 
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -75,45 +75,36 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private static int rowIndex = 0;
+
+    private void agregarListenerATabla() {
+        TableModel m;
+        m = tablaCotizacion.getModel();
+        if (rowIndex == 0) {
+            m.addTableModelListener(tablaCotizacion);
+        }
+    }
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-        DatosMoneda dm = (DatosMoneda) comboBoxDivisas.getSelectedItem();
-        
-        CreadorFila cf = new CreadorFila(dm.getSiglas());
-        Moneda nuevamoneda = cf.crear();
-        System.out.println("fila " + tablaCotizacion.getRowCount());
-        ModeloTablaCotizacion m = (ModeloTablaCotizacion) tablaCotizacion.getModel();
+        DatosMoneda dm;
+        CreadorFila cf;
+        Moneda monedaParaInsertar;
+        ModeloTablaCotizacion m;
+
+        dm = (DatosMoneda) comboBoxDivisas.getSelectedItem();
+        cf = new CreadorFila(dm.getSiglas());
+        monedaParaInsertar = cf.crear();
+
+        this.agregarListenerATabla();
+
+        System.out.println("Filas antes " + tablaCotizacion.getRowCount());
+        m = (ModeloTablaCotizacion) tablaCotizacion.getModel();
         m.addRow();
-        this.tablaCotizacion.setModel(m);
-        System.out.println("fila " + tablaCotizacion.getRowCount());
-        /*System.out.println("inserta "+nuevamoneda);
-         this.tablaCotizacion.getModel().
-         System.out.println("clase tabla "+tablaCotizacion.getClass().toString());
-         DefaultTableModel temp = (DefaultTableModel) tablaCotizacion.getModel();
-         // System.out.println("clase modelo tabla "+temp.getClass().toString());
-         Object nuevo[]= {temp.getRowCount()+1,"",""};
-         temp.addRow(nuevo);*/
-        //int fila = tablaCotizacion.getRowCount()+1;
-        //int columna = tablaCotizacion.getColumnCount();
-        /*
-         * DefaultTableModel temp = (DefaultTableModel) jTableProcesos.getModel();
-         Object nuevo[]= {temp.getRowCount()+1,"",""};
-         temp.addRow(nuevo);
-         */
-        /*
-         tablaCotizacion.setValueAt(nuevamoneda , fila, 0);
-         tablaCotizacion.setValueAt(nuevamoneda , fila, 1);
-         */
-        /*
-         System.out.println(dm);
-         System.out.println("fila " + tablaCotizacion.getRowCount());
-         System.out.println("columna " + tablaCotizacion.getColumnCount());
-         int r=tablaCotizacion.getModel().getRowCount();
-         int c=tablaCotizacion.getModel().getColumnCount();
-         this.tablaCotizacion.getModel().setValueAt(nuevamoneda, r, 0);
-         this.tablaCotizacion.getModel().setValueAt(nuevamoneda, r, 1);*/
-        
-        
+        System.out.println("Filas despues " + tablaCotizacion.getRowCount());
+        for (int i = 0; i <= 1; i++) {
+         tablaCotizacion.setValueAt(monedaParaInsertar, rowIndex, i);
+         }
+         rowIndex++;
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     /**
@@ -130,16 +121,22 @@ public class FramePrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FramePrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FramePrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -149,6 +146,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 new FramePrincipal().setVisible(true);
             }
         });
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;

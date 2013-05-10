@@ -31,8 +31,8 @@ public class CreadorFila {
             if (aux.getSiglas().equals(this.siglas)) {
                 flag = true;
                 moneda = new Moneda(this.siglas, aux.getCambio());
-                System.out.println("aux "+aux);
-                System.out.println("indice "+this.siglas);
+                System.out.println("aux " + aux);
+                System.out.println("indice " + this.siglas);
             }
             i++;
         }
