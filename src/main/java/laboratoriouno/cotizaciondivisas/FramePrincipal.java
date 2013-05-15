@@ -4,8 +4,6 @@
  */
 package laboratoriouno.cotizaciondivisas;
 
-import static java.awt.image.ImageObserver.WIDTH;
-import java.util.List;
 import javax.swing.table.TableModel;
 
 /**
