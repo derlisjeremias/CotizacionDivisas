@@ -11,10 +11,22 @@ import javax.swing.event.ListDataListener;
  *
  * @author Jere
  */
-public class ModeloComboBoxDivisas implements javax.swing.ComboBoxModel{
+public class ModeloComboBoxDivisas implements javax.swing.ComboBoxModel {
+
     private ServidorJSon sj = new ServidorJSon();
-    private List<DatosMoneda> lista = sj.getArrayDatosMoneda();
-    private DatosMoneda itemSeleccionado = lista.get(0);
+    private DatosMoneda itemSeleccionado;
+    private static List<DatosMoneda> lista = null;
+
+    public ModeloComboBoxDivisas() {
+        if (lista == null) {
+            lista = sj.getArrayDatosMoneda();
+        }
+        itemSeleccionado = lista.get(0);
+    }
+
+    public void actualizarListaMonedas() {
+        lista = sj.getArrayDatosMoneda();
+    }
 
     public void setSelectedItem(Object anItem) {
         this.itemSeleccionado = (DatosMoneda) anItem;
@@ -37,5 +49,4 @@ public class ModeloComboBoxDivisas implements javax.swing.ComboBoxModel{
 
     public void removeListDataListener(ListDataListener l) {
     }
-
 }

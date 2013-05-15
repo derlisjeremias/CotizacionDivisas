@@ -47,7 +47,7 @@ public class ModeloTablaCotizacion implements javax.swing.table.TableModel {
     }
 
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-            Moneda aux = (Moneda) aValue;
+            CotizacionMoneda aux = (CotizacionMoneda) aValue;
             if (columnIndex == 0) {
                 this.datos[rowIndex][columnIndex] = aux.getSiglas();
             }

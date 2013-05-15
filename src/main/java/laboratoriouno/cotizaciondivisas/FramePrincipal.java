@@ -4,6 +4,8 @@
  */
 package laboratoriouno.cotizaciondivisas;
 
+import static java.awt.image.ImageObserver.WIDTH;
+import java.util.List;
 import javax.swing.table.TableModel;
 
 /**
@@ -32,6 +34,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         botonAgregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCotizacion = new javax.swing.JTable();
+        botonActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,12 +50,19 @@ public class FramePrincipal extends javax.swing.JFrame {
         tablaCotizacion.setModel(new ModeloTablaCotizacion());
         jScrollPane1.setViewportView(tablaCotizacion);
 
+        botonActualizar.setText("Actualizar");
+        botonActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -60,6 +70,10 @@ public class FramePrincipal extends javax.swing.JFrame {
                         .addGap(104, 104, 104)
                         .addComponent(botonAgregar)))
                 .addGap(18, 18, 18))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botonActualizar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +84,9 @@ public class FramePrincipal extends javax.swing.JFrame {
                     .addComponent(botonAgregar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(botonActualizar)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,7 +104,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         DatosMoneda dm;
         CreadorFila cf;
-        Moneda monedaParaInsertar;
+        CotizacionMoneda monedaParaInsertar;
         ModeloTablaCotizacion m;
 
         dm = (DatosMoneda) comboBoxDivisas.getSelectedItem();
@@ -97,15 +113,17 @@ public class FramePrincipal extends javax.swing.JFrame {
 
         this.agregarListenerATabla();
 
-        System.out.println("Filas antes " + tablaCotizacion.getRowCount());
         m = (ModeloTablaCotizacion) tablaCotizacion.getModel();
         m.addRow();
-        System.out.println("Filas despues " + tablaCotizacion.getRowCount());
         for (int i = 0; i <= 1; i++) {
          tablaCotizacion.setValueAt(monedaParaInsertar, rowIndex, i);
          }
          rowIndex++;
     }//GEN-LAST:event_botonAgregarActionPerformed
+
+    private void botonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarActionPerformed
+        
+    }//GEN-LAST:event_botonActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +167,7 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizar;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JComboBox comboBoxDivisas;
     private javax.swing.JScrollPane jScrollPane1;

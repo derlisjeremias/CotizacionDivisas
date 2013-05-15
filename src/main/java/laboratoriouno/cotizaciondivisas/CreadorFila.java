@@ -13,24 +13,29 @@ import java.util.List;
 public class CreadorFila {
 
     String siglas;
-    List<Moneda> lista;
+    ServidorJSon sj = new ServidorJSon();
+    private static List<CotizacionMoneda> lista = null;
 
     public CreadorFila(String siglas) {
-        ServidorJSon sj = new ServidorJSon();
-        List<Moneda> l = sj.getArrayMonedas();
-        this.lista = l;
+        if (lista == null) {
+            lista = sj.getArrayMonedas();
+        }
         this.siglas = siglas;
     }
 
-    public Moneda crear() {
-        Moneda moneda = null;
+    public void actualizarListaMonedas() {
+        lista = sj.getArrayMonedas();
+    }
+
+    public CotizacionMoneda crear() {
+        CotizacionMoneda moneda = null;
         int i = 0;
         boolean flag = false;
         while (!flag && i <= lista.size()) {
-            Moneda aux = (Moneda) (lista.get(i));
+            CotizacionMoneda aux = (CotizacionMoneda) (lista.get(i));
             if (aux.getSiglas().equals(this.siglas)) {
                 flag = true;
-                moneda = new Moneda(this.siglas, aux.getCambio());
+                moneda = new CotizacionMoneda(this.siglas, aux.getCambio());
                 System.out.println("aux " + aux);
                 System.out.println("indice " + this.siglas);
             }
@@ -39,7 +44,7 @@ public class CreadorFila {
         if (flag) {
             return moneda;
         } else {
-            return new Moneda("error", "error");
+            return new CotizacionMoneda("error", "error");
         }
 
     }

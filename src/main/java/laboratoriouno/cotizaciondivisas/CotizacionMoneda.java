@@ -8,12 +8,12 @@ package laboratoriouno.cotizaciondivisas;
  *
  * @author Jere
  */
-public class Moneda {
+public class CotizacionMoneda {
 
     private String siglas;
     private String cambio;
 
-    public Moneda(String siglas, String cambio) {
+    public CotizacionMoneda(String siglas, String cambio) {
         this.siglas = siglas;
         this.cambio = cambio;
     }

@@ -60,17 +60,16 @@ public class ServidorJSon {
         return list;
     }
 
-    public List<Moneda> getArrayMonedas() {
+    public List<CotizacionMoneda> getArrayMonedas() {
         String url = "http://openexchangerates.org/api/latest.json?app_id=4272aa1329564d879f5fc1e54d666f1c";
         ServidorJSon sj = new ServidorJSon();
         JSONObject json = sj.getJSon(url);
-        List<Moneda> list = new ArrayList<Moneda>();
+        List<CotizacionMoneda> list = new ArrayList<CotizacionMoneda>();
         JSONObject rates = json.getJSONObject("rates");
+        
         for (Iterator<String> i = rates.keys(); i.hasNext();) {
             String key = i.next();
-            list.add(new Moneda(key, rates.getString(key)));
-           // System.out.println("Moneda: " + key + "   Cambio: " + rates.getString(key));
-
+            list.add(new CotizacionMoneda(key, rates.getString(key)));
         }
         return list;
     }
