@@ -4,55 +4,45 @@
  */
 package laboratoriouno.cotizaciondivisas.modelo;
 
-import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import laboratoriouno.cotizaciondivisas.DatosMoneda;
-import laboratoriouno.cotizaciondivisas.ServidorJSon;
 import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
  *
  * @author Jere
  */
 public abstract class CapturaRemotaDivisas {
-    abstract JSONObject obtenerDatos();
 
-    public List<DatosMoneda> getArrayDatosMoneda() {
-        String url = "http://openexchangerates.org/api/currencies.json";
-        ServidorJSon sj = new ServidorJSon();
-        JSONObject json = sj.getJSon(url);
-        List<DatosMoneda> list = new ArrayList<DatosMoneda>();
+    abstract protected JSONObject obtenerDatos();
 
-        for (Iterator<String> i = json.keys(); i.hasNext();) {
+    abstract protected JSONObject obtenerCotizaciones();
+
+    public List<Moneda> obtenerDatosMonedas() {
+        JSONObject objetoJson = obtenerDatos();
+        List<Moneda> lista = new ArrayList<Moneda>();
+        for (Iterator<String> i = objetoJson.keys(); i.hasNext();) {
             String key = i.next();
-            list.add(new DatosMoneda(key, json.getString(key)));
+            Moneda moneda = new Moneda(key, objetoJson.getString(key));
+           // System.out.println("UNA MONEDA " + moneda);
+            lista.add(moneda);
         }
-        return list;
+        return lista;
     }
 
-    public List<laboratoriouno.cotizaciondivisas.CotizacionMoneda> getArrayMonedas() {
-        String url = "http://openexchangerates.org/api/latest.json?app_id=4272aa1329564d879f5fc1e54d666f1c";
-        ServidorJSon sj = new ServidorJSon();
-        JSONObject json = sj.getJSon(url);
-        List<laboratoriouno.cotizaciondivisas.CotizacionMoneda> list = new ArrayList<laboratoriouno.cotizaciondivisas.CotizacionMoneda>();
-        JSONObject rates = json.getJSONObject("rates");
-        
-        for (Iterator<String> i = rates.keys(); i.hasNext();) {
-            String key = i.next();
-            list.add(new laboratoriouno.cotizaciondivisas.CotizacionMoneda(key, rates.getString(key)));
+    public List<CotizacionMoneda> obtenerCotizacionesMonedas() {
+        JSONObject cotizacionMonedas = obtenerCotizaciones();
+        List<CotizacionMoneda> lista = new ArrayList<CotizacionMoneda>();
+        for (Iterator<String> i = cotizacionMonedas.keys(); i.hasNext();) {
+            String clave = i.next();
+            JSONObject datos = (JSONObject) cotizacionMonedas.getJSONObject(clave);
+            String descripcion = datos.getString("descripcion");
+            String cotizacion = datos.getString("cotizacion");
+            CotizacionMoneda cmoneda = new CotizacionMoneda(clave, descripcion, cotizacion);
+           // System.out.println("UNA COTIZACIONMONEDA " + cmoneda);
+            lista.add(cmoneda);
         }
-        return list;
+        return lista;
     }
 }

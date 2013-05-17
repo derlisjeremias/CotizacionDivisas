@@ -27,6 +27,6 @@ public class CotizacionMoneda extends Moneda {
 
     @Override
     public String toString() {
-        return super.sigla + " (" + super.descripcion + ") cotiza en u$s " + cotizacion;
+        return super.sigla + " " + super.descripcion + " Cotiza en USD: " + cotizacion;
     }
 }
