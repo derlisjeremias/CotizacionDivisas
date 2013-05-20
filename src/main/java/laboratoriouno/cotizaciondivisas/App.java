@@ -1,5 +1,7 @@
 package laboratoriouno.cotizaciondivisas;
 
+import laboratoriouno.cotizaciondivisas.modelo.*;
+
 /**
  * Hello world!
  *
@@ -7,7 +9,10 @@ package laboratoriouno.cotizaciondivisas;
 public class App {
 
     public static void main(String[] args) {
-        FramePrincipal app = new FramePrincipal();
-        app.setVisible(true);
+        AdministracionDivisasUsuarios app = new AdministracionDivisasUsuarios();
+        FrameInicioSesion finicio = new FrameInicioSesion();
+        finicio.asignarAplicacion(app);
+        
+        finicio.setVisible(true);
     }
 }

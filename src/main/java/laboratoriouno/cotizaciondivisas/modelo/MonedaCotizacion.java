@@ -8,11 +8,11 @@ package laboratoriouno.cotizaciondivisas.modelo;
  *
  * @author Jere
  */
-public class CotizacionMoneda extends Moneda {
+public class MonedaCotizacion extends Moneda {
 
     private String cotizacion;
 
-    CotizacionMoneda(String unaSigla, String unaDescripcion, String unaCotizacion) {
+    MonedaCotizacion(String unaSigla, String unaDescripcion, String unaCotizacion) {
         super(unaSigla, unaDescripcion);
         this.cotizacion = unaCotizacion;
     }
@@ -27,6 +27,6 @@ public class CotizacionMoneda extends Moneda {
 
     @Override
     public String toString() {
-        return super.sigla + " " + super.descripcion + " Cotiza en USD: " + cotizacion;
+        return super.getSiglas() + " " + super.getDescripcion() + " Cotiza en USD: " + cotizacion;
     }
 }

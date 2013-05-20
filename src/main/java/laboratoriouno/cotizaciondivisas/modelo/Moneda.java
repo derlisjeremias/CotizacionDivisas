@@ -10,8 +10,8 @@ package laboratoriouno.cotizaciondivisas.modelo;
  */
 public class Moneda {
 
-    protected String sigla;
-    protected String descripcion;
+    private String sigla;
+    private String descripcion;
 
     Moneda(String unaSigla, String unaDescripcion) {
         this.sigla = unaSigla;

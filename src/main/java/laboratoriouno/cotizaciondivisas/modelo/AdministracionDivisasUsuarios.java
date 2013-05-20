@@ -12,15 +12,15 @@ import java.util.List;
  *
  * @author Jere
  */
-public class CotizacionDivisas {
+public class AdministracionDivisasUsuarios {
 
     private List<Moneda> monedas = new ArrayList();
-    private List<CotizacionMoneda> cotizacionMonedas = new ArrayList();
+    private List<MonedaCotizacion> cotizacionMonedas = new ArrayList();
     private List<Usuario> usuarios = new ArrayList();
     private Usuario usuarioActivo = null;
-    private CapturaRemotaDivisas informacionDivisas = new CapturaRemotaDivisasGoogleFinance();
+    private CapturaRemotaDivisas informacionDivisas = new CapturaRemotaDivisasOpenExchange();
 
-    CotizacionDivisas() {
+    public AdministracionDivisasUsuarios() {
         this.monedas = this.informacionDivisas.obtenerDatosMonedas();
         this.cotizacionMonedas = this.informacionDivisas.obtenerCotizacionesMonedas();
     }
@@ -29,8 +29,22 @@ public class CotizacionDivisas {
         return monedas;
     }
 
-    public List<CotizacionMoneda> getCotizacionMonedas() {
+    public List<MonedaCotizacion> getCotizacionMonedas() {
         return cotizacionMonedas;
+    }
+
+    public MonedaCotizacion obtenerUnaCotizacion(Moneda m) {
+        MonedaCotizacion objetivo = null;
+        boolean encontrada = false;
+        int i = 0;
+        while (i < this.cotizacionMonedas.size() || !encontrada) {
+            if (this.cotizacionMonedas.get(i).getSiglas().equals(m.getSiglas())) {
+                objetivo = this.cotizacionMonedas.get(i);
+                encontrada = true;
+            }
+            i++;
+        }
+        return objetivo;
     }
 
     public void agregarUsuario(Usuario u) {

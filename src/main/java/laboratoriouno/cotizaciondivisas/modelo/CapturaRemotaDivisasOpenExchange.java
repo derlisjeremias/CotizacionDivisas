@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import laboratoriouno.cotizaciondivisas.ServidorJSon;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
@@ -42,7 +41,7 @@ public class CapturaRemotaDivisasOpenExchange extends CapturaRemotaDivisas {
                 return json;
             }
         } catch (java.io.IOException ex) {
-            Logger.getLogger(ServidorJSon.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CapturaRemotaDivisas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new JSONObject();
     }

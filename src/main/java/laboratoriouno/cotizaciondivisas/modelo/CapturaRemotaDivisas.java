@@ -31,15 +31,15 @@ public abstract class CapturaRemotaDivisas {
         return lista;
     }
 
-    public List<CotizacionMoneda> obtenerCotizacionesMonedas() {
+    public List<MonedaCotizacion> obtenerCotizacionesMonedas() {
         JSONObject cotizacionMonedas = obtenerCotizaciones();
-        List<CotizacionMoneda> lista = new ArrayList<CotizacionMoneda>();
+        List<MonedaCotizacion> lista = new ArrayList<MonedaCotizacion>();
         for (Iterator<String> i = cotizacionMonedas.keys(); i.hasNext();) {
             String clave = i.next();
             JSONObject datos = (JSONObject) cotizacionMonedas.getJSONObject(clave);
             String descripcion = datos.getString("descripcion");
             String cotizacion = datos.getString("cotizacion");
-            CotizacionMoneda cmoneda = new CotizacionMoneda(clave, descripcion, cotizacion);
+            MonedaCotizacion cmoneda = new MonedaCotizacion(clave, descripcion, cotizacion);
            // System.out.println("UNA COTIZACIONMONEDA " + cmoneda);
             lista.add(cmoneda);
         }

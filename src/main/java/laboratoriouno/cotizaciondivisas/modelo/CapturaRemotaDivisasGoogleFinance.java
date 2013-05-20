@@ -4,13 +4,13 @@
  */
 package laboratoriouno.cotizaciondivisas.modelo;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import laboratoriouno.cotizaciondivisas.ServidorJSon;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
@@ -34,9 +34,9 @@ public class CapturaRemotaDivisasGoogleFinance extends CapturaRemotaDivisas {
 
     @Override
     protected JSONObject obtenerDatos() {
-        try {
+        try {        
             JSONObject datosMonedas = new JSONObject();
-            InputStream jsonStream = CotizacionDivisas.class.getResourceAsStream("MonedasAceptadasPorGoogleFinance.json");
+            InputStream jsonStream = AdministracionDivisasUsuarios.class.getResourceAsStream("MonedasAceptadasPorGoogleFinance.json");
             String jsonTxt = IOUtils.toString(jsonStream);
             JSONObject json = (JSONObject) JSONSerializer.toJSON(jsonTxt);
             for (Iterator<String> i = json.keys(); i.hasNext();) {
@@ -47,7 +47,7 @@ public class CapturaRemotaDivisasGoogleFinance extends CapturaRemotaDivisas {
             }
             return datosMonedas;
         } catch (Exception ex) {
-            Logger.getLogger(ServidorJSon.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CapturaRemotaDivisas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultadoFallido();
     }
@@ -82,7 +82,7 @@ public class CapturaRemotaDivisasGoogleFinance extends CapturaRemotaDivisas {
             }
             return cotizacionMonedas;
         } catch (Exception ex) {
-            Logger.getLogger(ServidorJSon.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CapturaRemotaDivisas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultadoFallido();
     }
