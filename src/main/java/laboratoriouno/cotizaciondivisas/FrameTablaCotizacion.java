@@ -4,6 +4,7 @@
  */
 package laboratoriouno.cotizaciondivisas;
 
+import javax.swing.ImageIcon;
 import laboratoriouno.cotizaciondivisas.conector.TablaCotizaciones;
 import laboratoriouno.cotizaciondivisas.modelo.AdministracionDivisasUsuarios;
 import laboratoriouno.cotizaciondivisas.modelo.Moneda;
@@ -68,6 +69,7 @@ public class FrameTablaCotizacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cotizacion de monedas");
+        setIconImage(new ImageIcon(this.getClass().getResource("ico.png")).getImage());
         setResizable(false);
 
         comboBoxDivisas.setModel(new laboratoriouno.cotizaciondivisas.conector.ComboBoxDivisas());
@@ -105,7 +107,7 @@ public class FrameTablaCotizacion extends javax.swing.JFrame {
 
         textUsuarioActivo.setEditable(false);
         textUsuarioActivo.setBackground(getBackground());
-        textUsuarioActivo.setBorder(null);
+        textUsuarioActivo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane2.setViewportView(textUsuarioActivo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,6 +154,7 @@ public class FrameTablaCotizacion extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed

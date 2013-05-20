@@ -14,5 +14,6 @@ public class App {
         finicio.asignarAplicacion(app);
         
         finicio.setVisible(true);
+
     }
 }
