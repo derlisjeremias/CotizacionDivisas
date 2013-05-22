@@ -13,7 +13,7 @@ public class Moneda {
     private String sigla;
     private String descripcion;
 
-    Moneda(String unaSigla, String unaDescripcion) {
+    public Moneda(String unaSigla, String unaDescripcion) {
         this.sigla = unaSigla;
         this.descripcion = unaDescripcion;
     }

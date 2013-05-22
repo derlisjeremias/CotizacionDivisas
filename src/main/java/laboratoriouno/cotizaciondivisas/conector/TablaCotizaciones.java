@@ -75,9 +75,8 @@ public class TablaCotizaciones implements javax.swing.table.TableModel {
     }
 
     private void tablaModificada() {
-        for (int i = 0; i < this.dependientes.size() - 1; i++) {
-            TableModelListener dependiente = this.dependientes.get(i);
-            dependiente.tableChanged(evento);
+        for (TableModelListener tl : this.dependientes) {
+            tl.tableChanged(evento);
         }
 
     }
@@ -95,18 +94,35 @@ public class TablaCotizaciones implements javax.swing.table.TableModel {
     }
 
     public void eliminarUltimaFila() {
-        Object[][] nuevaTabla = new Object[this.getRowCount() - 1][2];
-        int i = 0;
-        while (i < this.getRowCount()-1) {
-            nuevaTabla[i][0] = this.filasColumnasTabla[i][0];
-            nuevaTabla[i][1] = this.filasColumnasTabla[i][1];
-            i++;
+        if (this.getRowCount() > 0) {
+            Object[][] nuevaTabla = new Object[this.getRowCount() - 1][2];
+            int i = 0;
+            while (i < this.getRowCount() - 1) {
+                nuevaTabla[i][0] = this.filasColumnasTabla[i][0];
+                nuevaTabla[i][1] = this.filasColumnasTabla[i][1];
+                i++;
+            }
+            this.filasColumnasTabla = nuevaTabla;
+            this.tablaModificada();
         }
+    }
+
+    public void limpiarTabla() {
+        Object[][] nuevaTabla = new Object[0][2];
         this.filasColumnasTabla = nuevaTabla;
         this.tablaModificada();
     }
 
+    public void cargarMonedasUsuario(Usuario u, AdministracionDivisasUsuarios app) {
+        for (Moneda mc : u.getMisMonedas()) {
+            this.agregarCotizacion(app.obtenerUnaCotizacion(mc));
+
+        }
+
+    }
+
     public void agregarCotizacion(MonedaCotizacion mc) {
+
         this.agregarFila();
         this.setValueAt(mc, this.getRowCount() - 1, 0);
     }

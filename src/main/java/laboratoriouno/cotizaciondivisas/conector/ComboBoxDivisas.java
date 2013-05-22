@@ -16,7 +16,7 @@ public class ComboBoxDivisas implements javax.swing.ComboBoxModel {
 
     private CapturaRemotaDivisas servidorDatos = new CapturaRemotaDivisasGoogleFinance();
     private Moneda monedaSeleccionada;
-    private static List<Moneda> listaMonedas = null;
+    private List<Moneda> listaMonedas = null;
 
     public ComboBoxDivisas() {
         if (this.listaMonedas == null) {

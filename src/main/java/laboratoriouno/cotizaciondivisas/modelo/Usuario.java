@@ -5,6 +5,7 @@
 package laboratoriouno.cotizaciondivisas.modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Usuario {
     private String claveAcceso;
     private List<Moneda> misMonedas = new ArrayList();
 
-    Usuario(String unNombre) {
+    public Usuario(String unNombre) {
         this.nombre = unNombre;
         this.claveAcceso = null;
     }
@@ -35,6 +36,22 @@ public class Usuario {
             this.claveAcceso = claveAcceso;
             return true;
         }
+        return false;
+    }
+
+    public boolean tieneNombre() {
+        return !this.nombre.isEmpty();
+    }
+
+    public boolean validarClave(char[] claveEntrante) {
+        char[] clave;
+        clave = this.claveAcceso.trim().toCharArray();
+
+        if (Arrays.equals(claveEntrante, clave)) {
+            return true;
+        }
+
+        Arrays.fill(claveEntrante, ' ');
         return false;
     }
 

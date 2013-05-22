@@ -48,7 +48,17 @@ public class AdministracionDivisasUsuarios {
     }
 
     public void agregarUsuario(Usuario u) {
-        if (!this.usuarios.contains(u)) {
+        boolean existeNombreUsuario = false;
+        int i = 0;
+        while (!existeNombreUsuario && i < this.usuarios.size()) {
+            if (this.usuarios.get(i).getNombre().equals(u.getNombre())) {
+                existeNombreUsuario = true;
+            }
+            i++;
+        }
+
+
+        if (!existeNombreUsuario && !this.usuarios.contains(u)) {
             this.usuarios.add(u);
         }
     }
@@ -57,16 +67,16 @@ public class AdministracionDivisasUsuarios {
         return (this.usuarioActivo != null);
     }
 
-    public boolean iniciarSesion(Usuario u) {
+    public boolean iniciarSesion(Usuario u, char[] clave) {
         boolean existeUsuario = existeUsuarioConMombre(u.getNombre());
-        if (existeUsuario && !sesionIniciada()) {
+        if (existeUsuario && !sesionIniciada() && u.validarClave(clave)) {
             this.usuarioActivo = u;
             return true;
         }
         return false;
     }
 
-    public void cerrarSesion(Usuario u) {
+    public void cerrarSesion() {
         this.usuarioActivo = null;
     }
 
@@ -74,6 +84,10 @@ public class AdministracionDivisasUsuarios {
         if (this.usuarios.contains(u)) {
             this.usuarios.remove(u);
         }
+    }
+
+    public List<Usuario> getUsuarios() {
+        return this.usuarios;
     }
 
     public Usuario obtenerUsuario(String nombre) {
@@ -90,7 +104,7 @@ public class AdministracionDivisasUsuarios {
         if (encontrado) {
             return uObjetivo;
         } else {
-            return new Usuario("Usuario no hallado");
+            return new Usuario("");
         }
     }
 
