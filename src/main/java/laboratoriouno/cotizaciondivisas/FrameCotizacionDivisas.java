@@ -421,7 +421,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
     private void botonEliminar_tabAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminar_tabAdminActionPerformed
         if (this.tablaUsuarios_tabAdmin.getSelectedRow() > -1) {
             String nombre = (String) this.conectorTablaUsuarios.getValueAt(this.tablaUsuarios_tabAdmin.getSelectedRow(), 0);
-            int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Realmente desea eliminar \n al usuario " + nombre + "?", "Confirme eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar \n al usuario " + nombre + "?", "Confirme eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION) {
                 Usuario u = this.modeloApp.obtenerUsuario(nombre);
                 this.modeloApp.eliminarUsuario(u);
@@ -437,7 +437,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
             String nombreModificado = this.campoNombreUsuario_tabAdmin.getText();
             String nuevaClave = this.campoClaveAcceso_tabAdmin.getText();
 
-            int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Realmente desea actualizar \n datos del usuario " + nombreOriginal + "?", "Confirme actualización", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Realmente desea actualizar \n datos del usuario " + nombreOriginal + "?", "Confirme actualización", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION) {
                 Usuario u = this.modeloApp.obtenerUsuario(nombreOriginal);
                 if (!nombreOriginal.equals(nombreModificado)) {
@@ -481,7 +481,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
                 MonedaCotizacion mc = this.modeloApp.obtenerUnaCotizacion(s);
                 this.conectorTablaCotizaciones.agregarCotizacion(mc);
             }
-            JOptionPane.showMessageDialog(null, "Cotizaciones actualizadas", "Actualizado", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cotizaciones actualizadas", "Actualizado", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonActualizar_tabCotizaActionPerformed
 
