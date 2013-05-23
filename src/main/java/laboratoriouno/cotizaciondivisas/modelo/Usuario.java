@@ -63,6 +63,11 @@ public class Usuario {
         return false;
     }
 
+    public void modificarClaveAcceso(String nuevaClaveAcceso) {
+
+        this.claveAcceso = nuevaClaveAcceso;
+    }
+
     public List<Moneda> getMisMonedas() {
         return misMonedas;
     }

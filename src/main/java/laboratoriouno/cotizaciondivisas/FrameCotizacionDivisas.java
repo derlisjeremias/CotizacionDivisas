@@ -5,9 +5,11 @@
 package laboratoriouno.cotizaciondivisas;
 
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import laboratoriouno.cotizaciondivisas.conector.ComboBoxDivisas;
 import laboratoriouno.cotizaciondivisas.conector.TablaCotizaciones;
 import laboratoriouno.cotizaciondivisas.conector.TablaUsuarios;
@@ -25,7 +27,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
     private AdministracionDivisasUsuarios modeloApp;
     private TablaCotizaciones conectorTablaCotizaciones;
     private TablaUsuarios conectorTablaUsuarios;
-    private EntornoGrafico visualizacion;
+    private String nombreUsuarioSeleccionado_tabAdmin = new String();
 
     /**
      * Creates new form FrameCotizacionDivisas
@@ -43,10 +45,6 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
     public void asignarAplicacion(AdministracionDivisasUsuarios app) {
         this.modeloApp = app;
         this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
-    }
-
-    public void asignarVisualizador(EntornoGrafico eg) {
-        this.visualizacion = eg;
     }
 
     /**
@@ -73,6 +71,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
         botonEliminarUltima_tabCotiza = new javax.swing.JButton();
         scrollCotizaciones_tabCotiza = new javax.swing.JScrollPane();
         tablaCotizaciones_tabCotiza = new javax.swing.JTable();
+        botonActualizar_tabCotiza = new javax.swing.JButton();
         tabAdminUsuarios = new javax.swing.JPanel();
         scrollUsuarios_tabAdmin = new javax.swing.JScrollPane();
         tablaUsuarios_tabAdmin = new javax.swing.JTable();
@@ -185,6 +184,13 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
         tablaCotizaciones_tabCotiza.setModel(new TablaCotizaciones());
         scrollCotizaciones_tabCotiza.setViewportView(tablaCotizaciones_tabCotiza);
 
+        botonActualizar_tabCotiza.setText("Actualizar cotizaciones");
+        botonActualizar_tabCotiza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizar_tabCotizaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout tabCotizacionDivisasLayout = new javax.swing.GroupLayout(tabCotizacionDivisas);
         tabCotizacionDivisas.setLayout(tabCotizacionDivisasLayout);
         tabCotizacionDivisasLayout.setHorizontalGroup(
@@ -198,9 +204,11 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
                             .addComponent(comboBoxDivisas_tabCotiza, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(botonAgregar_tabCotiza, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, tabCotizacionDivisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botonEliminarUltima_tabCotiza)
-                            .addComponent(scrollCotizaciones_tabCotiza, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(tabCotizacionDivisasLayout.createSequentialGroup()
+                            .addComponent(botonActualizar_tabCotiza)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonEliminarUltima_tabCotiza))
+                        .addComponent(scrollCotizaciones_tabCotiza, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tabCotizacionDivisasLayout.setVerticalGroup(
@@ -215,13 +223,25 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(scrollCotizaciones_tabCotiza, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonEliminarUltima_tabCotiza)
+                .addGroup(tabCotizacionDivisasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonEliminarUltima_tabCotiza)
+                    .addComponent(botonActualizar_tabCotiza))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelCotizacionDivisas.addTab("Cotización de divisas", tabCotizacionDivisas);
 
         tablaUsuarios_tabAdmin.setModel(new TablaUsuarios());
+        tablaUsuarios_tabAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuarios_tabAdminMouseClicked(evt);
+            }
+        });
+        tablaUsuarios_tabAdmin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tablaUsuarios_tabAdminKeyPressed(evt);
+            }
+        });
         scrollUsuarios_tabAdmin.setViewportView(tablaUsuarios_tabAdmin);
 
         panelAdminUsuarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -245,6 +265,11 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
         });
 
         botonActualizar_tabAdmin.setText("Actualizar");
+        botonActualizar_tabAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizar_tabAdminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAdminUsuariosLayout = new javax.swing.GroupLayout(panelAdminUsuarios);
         panelAdminUsuarios.setLayout(panelAdminUsuariosLayout);
@@ -364,36 +389,106 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
         this.botonCerrarSesion_tabSesion.setEnabled(false);
         this.conectorTablaCotizaciones.limpiarTabla();
     }
+
+    private void restaurarCamposUsuario_tabAdmin() {
+        this.campoNombreUsuario_tabAdmin.setText("Nombre de usuario");
+        this.campoClaveAcceso_tabAdmin.setText("Clave de acceso");
+        this.botonAgregar_tabAdmin.setEnabled(true);
+        this.tablaUsuarios_tabAdmin.clearSelection();
+    }
     private void botonCerrarSesion_tabSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesion_tabSesionActionPerformed
         this.modeloApp.cerrarSesion();
         this.cerrarSesion();
     }//GEN-LAST:event_botonCerrarSesion_tabSesionActionPerformed
 
     private void botonAgregar_tabAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregar_tabAdminActionPerformed
-        String claveConfirmada = JOptionPane.showInputDialog(this, "Confirmar clave:", "Confirmar clave", JOptionPane.INFORMATION_MESSAGE);
-        String nombre = this.campoNombreUsuario_tabAdmin.getText();
-        String clave = this.campoClaveAcceso_tabAdmin.getText();
-        if (claveConfirmada != null && !claveConfirmada.isEmpty()) {
-            if (claveConfirmada.equals(clave)) {
-                Usuario u = new Usuario(nombre);
-                u.setClaveAcceso(clave);
-                this.modeloApp.agregarUsuario(u);
-                this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
-                this.campoNombreUsuario_tabAdmin.setText("Nombre de usuario");
-                this.campoClaveAcceso_tabAdmin.setText("Clave de acceso");
+        if (this.tablaUsuarios_tabAdmin.getSelectedRow() == -1) {
+            String claveConfirmada = JOptionPane.showInputDialog(this, "Confirmar clave:", "Confirmar clave", JOptionPane.INFORMATION_MESSAGE);
+            String nombre = this.campoNombreUsuario_tabAdmin.getText();
+            String clave = this.campoClaveAcceso_tabAdmin.getText();
+            if (claveConfirmada != null && !claveConfirmada.isEmpty()) {
+                if (claveConfirmada.equals(clave)) {
+                    Usuario u = new Usuario(nombre);
+                    u.setClaveAcceso(clave);
+                    this.modeloApp.agregarUsuario(u);
+                    this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
+                    restaurarCamposUsuario_tabAdmin();
+                }
             }
         }
     }//GEN-LAST:event_botonAgregar_tabAdminActionPerformed
 
     private void botonEliminar_tabAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminar_tabAdminActionPerformed
-        System.out.println(this.tablaUsuarios_tabAdmin.getSelectedRow());
+        if (this.tablaUsuarios_tabAdmin.getSelectedRow() > -1) {
+            String nombre = (String) this.conectorTablaUsuarios.getValueAt(this.tablaUsuarios_tabAdmin.getSelectedRow(), 0);
+            int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Realmente desea eliminar \n al usuario " + nombre + "?", "Confirme eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                Usuario u = this.modeloApp.obtenerUsuario(nombre);
+                this.modeloApp.eliminarUsuario(u);
+                this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
+            }
+        }
+        restaurarCamposUsuario_tabAdmin();
     }//GEN-LAST:event_botonEliminar_tabAdminActionPerformed
+
+    private void botonActualizar_tabAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizar_tabAdminActionPerformed
+        if (this.tablaUsuarios_tabAdmin.getSelectedRow() > -1) {
+            String nombreOriginal = this.nombreUsuarioSeleccionado_tabAdmin;
+            String nombreModificado = this.campoNombreUsuario_tabAdmin.getText();
+            String nuevaClave = this.campoClaveAcceso_tabAdmin.getText();
+
+            int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Realmente desea actualizar \n datos del usuario " + nombreOriginal + "?", "Confirme actualización", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (respuesta == JOptionPane.YES_OPTION) {
+                Usuario u = this.modeloApp.obtenerUsuario(nombreOriginal);
+                if (!nombreOriginal.equals(nombreModificado)) {
+                    u.setNombre(nombreModificado);
+                }
+                if (!nuevaClave.equals("*****")) {
+                    u.modificarClaveAcceso(nuevaClave);
+                }
+                this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
+            }
+        }
+        restaurarCamposUsuario_tabAdmin();
+    }//GEN-LAST:event_botonActualizar_tabAdminActionPerformed
+
+    private void tablaUsuarios_tabAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuarios_tabAdminMouseClicked
+        if (this.tablaUsuarios_tabAdmin.getSelectedRow() > -1) {
+            String nombre = (String) this.conectorTablaUsuarios.getValueAt(this.tablaUsuarios_tabAdmin.getSelectedRow(), 0);
+            this.nombreUsuarioSeleccionado_tabAdmin = nombre;
+            this.campoNombreUsuario_tabAdmin.setText(nombre);
+            this.campoClaveAcceso_tabAdmin.setText("*****");
+            this.botonAgregar_tabAdmin.setEnabled(false);
+        }
+    }//GEN-LAST:event_tablaUsuarios_tabAdminMouseClicked
+
+    private void tablaUsuarios_tabAdminKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tablaUsuarios_tabAdminKeyPressed
+        String tecla = KeyEvent.getKeyText(evt.getKeyCode());
+        if (tecla.equals("Escape")) {
+            restaurarCamposUsuario_tabAdmin();
+        }
+    }//GEN-LAST:event_tablaUsuarios_tabAdminKeyPressed
+
+    private void botonActualizar_tabCotizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizar_tabCotizaActionPerformed
+        if (this.conectorTablaCotizaciones.getRowCount() > 0) {
+            this.modeloApp.actualizarCotizaciones();
+            List<String> siglas = new ArrayList();
+            for (int i = 0; i <= this.conectorTablaCotizaciones.getRowCount() - 1; i++) {
+                siglas.add(this.conectorTablaCotizaciones.getValueAt(i, 0).toString());
+            }
+            this.conectorTablaCotizaciones.limpiarTabla();
+            for (String s : siglas) {
+                MonedaCotizacion mc = this.modeloApp.obtenerUnaCotizacion(s);
+                this.conectorTablaCotizaciones.agregarCotizacion(mc);
+            }
+            JOptionPane.showMessageDialog(null, "Cotizaciones actualizadas", "Actualizado", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_botonActualizar_tabCotizaActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -401,7 +496,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("WindowsLookAndFeel".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -427,6 +522,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAcceder_tabSesion;
     private javax.swing.JButton botonActualizar_tabAdmin;
+    private javax.swing.JButton botonActualizar_tabCotiza;
     private javax.swing.JButton botonAgregar_tabAdmin;
     private javax.swing.JButton botonAgregar_tabCotiza;
     private javax.swing.JButton botonCerrarSesion_tabSesion;

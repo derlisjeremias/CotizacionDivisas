@@ -33,6 +33,26 @@ public class AdministracionDivisasUsuarios {
         return cotizacionMonedas;
     }
 
+    public Moneda obtenerUnaMoneda(String sigla) {
+        Moneda objetivo = null;
+        boolean encontrada = false;
+        int i = 0;
+        while (i < this.monedas.size() || !encontrada) {
+            if (this.monedas.get(i).getSiglas().equals(sigla)) {
+                objetivo = this.monedas.get(i);
+                encontrada = true;
+            }
+            i++;
+        }
+        return objetivo;
+    }
+
+    public MonedaCotizacion obtenerUnaCotizacion(String sigla) {
+        Moneda m = this.obtenerUnaMoneda(sigla);
+        MonedaCotizacion mc = this.obtenerUnaCotizacion(m);
+        return mc;
+    }
+
     public MonedaCotizacion obtenerUnaCotizacion(Moneda m) {
         MonedaCotizacion objetivo = null;
         boolean encontrada = false;

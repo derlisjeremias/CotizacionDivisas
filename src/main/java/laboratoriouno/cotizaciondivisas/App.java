@@ -13,8 +13,8 @@ import laboratoriouno.cotizaciondivisas.modelo.Usuario;
 public class App {
 
     public static void main(String[] args) {
-        EntornoGrafico visualizar = new EntornoGrafico();
-        visualizar.seleccionarWindows();
+        EntornoGrafico.seleccionarWindows();
+        
         Usuario usuario = new Usuario("A");
         usuario.setClaveAcceso("a");
         Moneda mA = new Moneda("CUP", "Cuban Peso");
@@ -31,7 +31,6 @@ public class App {
         modelo.agregarUsuario(usuario);
         FrameCotizacionDivisas aplicacion = new FrameCotizacionDivisas();
         aplicacion.asignarAplicacion(modelo);
-        aplicacion.asignarVisualizador(visualizar);
 
         aplicacion.setVisible(true);
 
