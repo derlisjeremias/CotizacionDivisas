@@ -1,0 +1,131 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package laboratoriouno.cotizaciondivisas.persistencia;
+
+import java.util.List;
+import javax.persistence.*;
+import javax.persistence.criteria.*;
+import laboratoriouno.cotizaciondivisas.modelo.Usuario;
+
+/**
+ *
+ * @author Jere
+ */
+public class CtrlPersistenciaUsuario {
+
+    private EntityManagerFactory emf = null;
+
+    public CtrlPersistenciaUsuario(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+
+    public EntityManager getEntityManager() {
+        return this.emf.createEntityManager();
+    }
+
+    public void crear(Usuario usuario) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(usuario);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void editar(Usuario usuario) throws NoExisteEntidadException, Exception {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            usuario = em.merge(usuario);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            String msg = ex.getLocalizedMessage();
+            if (msg == null || msg.length() == 0) {
+                Long id = usuario.getId();
+                if (encontrarUsuario(id) == null) {
+                    throw new NoExisteEntidadException("No existe el usuario con id " + id);
+                }
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void destruir(Long id) throws NoExisteEntidadException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Usuario usuario;
+            try {
+                usuario = em.getReference(Usuario.class, id);
+                usuario.getId();
+            } catch (EntityNotFoundException enfe) {
+                throw new NoExisteEntidadException("No existe el usuario con id " + id, enfe);
+            }
+            em.remove(usuario);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Usuario> encontrarEntidadesUsuario() {
+        return encontrarEntidadesUsuario(true, -1, -1);
+    }
+
+    public List<Usuario> encontrarEntidadesUsuario(int maxResultados, int primerResultado) {
+        return encontrarEntidadesUsuario(false, maxResultados, primerResultado);
+    }
+
+    private List<Usuario> encontrarEntidadesUsuario(boolean total, int maxResultados, int primerResultado) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(Usuario.class));
+            Query q = em.createQuery(cq);
+            if (!total) {
+                q.setMaxResults(maxResultados);
+                q.setFirstResult(primerResultado);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Usuario encontrarUsuario(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Usuario.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public int getCantidadUsuario() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Root<Usuario> rt = cq.from(Usuario.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+}

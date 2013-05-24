@@ -15,7 +15,7 @@ public class App {
     public static void main(String[] args) {
         EntornoGrafico.seleccionarWindows();
         
-        Usuario usuario = new Usuario("A");
+      /*  Usuario usuario = new Usuario("A");
         usuario.setClaveAcceso("a");
         Moneda mA = new Moneda("CUP", "Cuban Peso");
         Moneda mB = new Moneda("LBP", "Lebanese Pound");
@@ -25,10 +25,10 @@ public class App {
         usuario.agregarMoneda(mB);
         usuario.agregarMoneda(mC);
         usuario.agregarMoneda(mD);
-        usuario.agregarMoneda(mA);
+        usuario.agregarMoneda(mA);*/
 
         AdministracionDivisasUsuarios modelo = new AdministracionDivisasUsuarios();
-        modelo.agregarUsuario(usuario);
+        //modelo.agregarUsuario(usuario);
         FrameCotizacionDivisas aplicacion = new FrameCotizacionDivisas();
         aplicacion.asignarAplicacion(modelo);
 

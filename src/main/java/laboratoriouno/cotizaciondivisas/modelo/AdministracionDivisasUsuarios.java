@@ -7,6 +7,12 @@ package laboratoriouno.cotizaciondivisas.modelo;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import laboratoriouno.cotizaciondivisas.persistencia.CtrlPersistenciaMoneda;
+import laboratoriouno.cotizaciondivisas.persistencia.CtrlPersistenciaUsuario;
+import laboratoriouno.cotizaciondivisas.persistencia.ManejoPersistencia;
+import laboratoriouno.cotizaciondivisas.persistencia.NoExisteEntidadException;
 
 /**
  *
@@ -14,6 +20,7 @@ import java.util.List;
  */
 public class AdministracionDivisasUsuarios {
 
+    private ManejoPersistencia persistencia = null;
     private List<Moneda> monedas = new ArrayList();
     private List<MonedaCotizacion> cotizacionMonedas = new ArrayList();
     private List<Usuario> usuarios = new ArrayList();
@@ -23,6 +30,9 @@ public class AdministracionDivisasUsuarios {
     public AdministracionDivisasUsuarios() {
         this.monedas = this.informacionDivisas.obtenerDatosMonedas();
         this.cotizacionMonedas = this.informacionDivisas.obtenerCotizacionesMonedas();
+        this.persistencia = new ManejoPersistencia();
+        this.cargarUsuarios();
+
     }
 
     public List<Moneda> getMonedas() {
@@ -67,6 +77,37 @@ public class AdministracionDivisasUsuarios {
         return objetivo;
     }
 
+    private void cargarUsuarios() {
+        CtrlPersistenciaUsuario cpu = this.persistencia.getCtrlPersUsuario();
+        this.usuarios = cpu.encontrarEntidadesUsuario();
+    }
+
+    private void persistirUsuario(Usuario u) {
+        CtrlPersistenciaUsuario cpu = this.persistencia.getCtrlPersUsuario();
+        cpu.crear(u);
+    }
+
+    private void destruirUsuario(Usuario u) {
+        try {
+            CtrlPersistenciaUsuario cpu = this.persistencia.getCtrlPersUsuario();
+            cpu.destruir(u.getId());
+        } catch (NoExisteEntidadException ex) {
+            Logger.getLogger(AdministracionDivisasUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void destruirMonedaDeUsuario(Moneda m) {
+
+        if (m.getUsuario().getId() == this.usuarioActivo.getId()) {
+            try {
+                CtrlPersistenciaMoneda cpm = this.persistencia.getCtrlPersMoneda();
+                cpm.destruir(m.getId());
+            } catch (NoExisteEntidadException ex) {
+                Logger.getLogger(AdministracionDivisasUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public void agregarUsuario(Usuario u) {
         boolean existeNombreUsuario = false;
         int i = 0;
@@ -76,10 +117,9 @@ public class AdministracionDivisasUsuarios {
             }
             i++;
         }
-
-
         if (!existeNombreUsuario && !this.usuarios.contains(u)) {
             this.usuarios.add(u);
+            this.persistirUsuario(u);
         }
     }
 
@@ -103,6 +143,7 @@ public class AdministracionDivisasUsuarios {
     public void eliminarUsuario(Usuario u) {
         if (this.usuarios.contains(u)) {
             this.usuarios.remove(u);
+            this.destruirUsuario(u);
         }
     }
 
@@ -143,12 +184,14 @@ public class AdministracionDivisasUsuarios {
     public void agregarMonedaDeUsuario(Moneda m) {
         if (sesionIniciada()) {
             this.usuarioActivo.agregarMoneda(m);
+            m.setUsuario(usuarioActivo);
         }
     }
 
     public void eliminarMonedaDeUsuario(Moneda m) {
         if (sesionIniciada()) {
             this.usuarioActivo.eliminarMoneda(m);
+            this.destruirMonedaDeUsuario(m);
         }
     }
 
