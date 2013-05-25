@@ -419,7 +419,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
 
     private void botonAgregar_tabAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregar_tabAdminActionPerformed
         if (this.tablaUsuarios_tabAdmin.getSelectedRow() == -1) {
-            String claveConfirmada = JOptionPane.showInputDialog(this, "Confirmar clave:", "Confirmar clave", JOptionPane.INFORMATION_MESSAGE);
+            String claveConfirmada = JOptionPane.showInputDialog(this.botonAgregar_tabAdmin, "Confirmar clave:", "Confirmar clave", JOptionPane.INFORMATION_MESSAGE);
             String nombre = this.campoNombreUsuario_tabAdmin.getText();
             String clave = this.campoClaveAcceso_tabAdmin.getText();
             if (claveConfirmada != null && !claveConfirmada.isEmpty()) {
