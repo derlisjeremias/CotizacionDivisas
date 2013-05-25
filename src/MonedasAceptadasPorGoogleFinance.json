@@ -1,0 +1,354 @@
+{
+    "AED":     {
+        "pais": "United Arab Emirates",
+        "nombre": "Dirhams"
+    },
+    "ANG":     {
+        "pais": "Netherlands Antilles",
+        "nombre": "Guilders"
+    },
+    "ARS":     {
+        "pais": "Argentine",
+        "nombre": "Pesos"
+    },
+    "AUD":     {
+        "pais": "Australian",
+        "nombre": "Dollars"
+    },
+    "BGN":     {
+        "pais": "Bulgarian",
+        "nombre": "Levs"
+    },
+    "BHD":     {
+        "pais": "Bahrain",
+        "nombre": "Dinars"
+    },
+    "BND":     {
+        "pais": "Brunei",
+        "nombre": "Dollars"
+    },
+    "BOB":     {
+        "pais": "Bolivian",
+        "nombre": "Bolivianos"
+    },
+    "BRL":     {
+        "pais": "Brazil",
+        "nombre": "Reais"
+    },
+    "BWP":     {
+        "pais": "Botswana",
+        "nombre": "Pula"
+    },
+    "CAD":     {
+        "pais": "Canadian",
+        "nombre": "Dollars"
+    },
+    "CHF":     {
+        "pais": "Swiss",
+        "nombre": "Francs"
+    },
+    "CLP":     {
+        "pais": "Chilean",
+        "nombre": "Pesos"
+    },
+    "CNY":     {
+        "pais": "Chinese",
+        "nombre": "Yuan"
+    },
+    "COP":     {
+        "pais": "Colombian",
+        "nombre": "Pesos"
+    },
+    "CRC":     {
+        "pais": "Costa Rican",
+        "nombre": "Colones"
+    },
+    "CZK":     {
+        "pais": "Czech",
+        "nombre": "Koruny"
+    },
+    "DKK":     {
+        "pais": "Danish",
+        "nombre": "Kroner"
+    },
+    "DOP":     {
+        "pais": "Dominican",
+        "nombre": "Pesos"
+    },
+    "DZD":     {
+        "pais": "Algerian",
+        "nombre": "Dinars"
+    },
+    "EGP":     {
+        "pais": "Egyptian",
+        "nombre": "Pounds"
+    },
+    "EUR":     {
+        "pais": "Euros",
+        "nombre": ""
+    },
+    "FJD":     {
+        "pais": "Fiji",
+        "nombre": "Dollars"
+    },
+    "GBP":     {
+        "pais": "British",
+        "nombre": "Pounds"
+    },
+    "HKD":     {
+        "pais": "Hong Kong",
+        "nombre": "Dollars"
+    },
+    "HNL":     {
+        "pais": "Honduran",
+        "nombre": "Lempiras"
+    },
+    "HRK":     {
+        "pais": "Croatian",
+        "nombre": "Kune"
+    },
+    "HUF":     {
+        "pais": "Hungarian",
+        "nombre": "Forints"
+    },
+    "IDR":     {
+        "pais": "Indonesian",
+        "nombre": "Rupiahs"
+    },
+    "ILS":     {
+        "pais": "Israeli",
+        "nombre": "Shekels"
+    },
+    "INR":     {
+        "pais": "Indian",
+        "nombre": "Rupees"
+    },
+    "JMD":     {
+        "pais": "Jamaican",
+        "nombre": "Dollars"
+    },
+    "JOD":     {
+        "pais": "Jordanian",
+        "nombre": "Dinars"
+    },
+    "JPY":     {
+        "pais": "Japanese",
+        "nombre": "Yen"
+    },
+    "KES":     {
+        "pais": "Kenyan",
+        "nombre": "Shillings"
+    },
+    "KRW":     {
+        "pais": "South Korean",
+        "nombre": "Won"
+    },
+    "KWD":     {
+        "pais": "Kuwaiti",
+        "nombre": "Dinars"
+    },
+    "KYD":     {
+        "pais": "Cayman Islands",
+        "nombre": "Dollars"
+    },
+    "KZT":     {
+        "pais": "Kazakh",
+        "nombre": "Tenge"
+    },
+    "LBP":     {
+        "pais": "Lebanese",
+        "nombre": "Pounds"
+    },
+    "LKR":     {
+        "pais": "Sri Lankan",
+        "nombre": "Rupees"
+    },
+    "LTL":     {
+        "pais": "Lithuanian",
+        "nombre": "Litai"
+    },
+    "LVL":     {
+        "pais": "Latvian",
+        "nombre": "Lati"
+    },
+    "MAD":     {
+        "pais": "Moroccan",
+        "nombre": "Dirhams"
+    },
+    "MDL":     {
+        "pais": "Moldovan",
+        "nombre": "Lei"
+    },
+    "MKD":     {
+        "pais": "Macedonian",
+        "nombre": "Denari"
+    },
+    "MUR":     {
+        "pais": "Mauritian",
+        "nombre": "Rupees"
+    },
+    "MXN":     {
+        "pais": "Mexican",
+        "nombre": "Pesos"
+    },
+    "MYR":     {
+        "pais": "Malaysian",
+        "nombre": "Ringgits"
+    },
+    "NAD":     {
+        "pais": "Namibian",
+        "nombre": "Dollars"
+    },
+    "NGN":     {
+        "pais": "Nigerian",
+        "nombre": "Naira"
+    },
+    "NIO":     {
+        "pais": "Nicaraguan",
+        "nombre": "Cordobas"
+    },
+    "NOK":     {
+        "pais": "Norwegian",
+        "nombre": "Kroner"
+    },
+    "NPR":     {
+        "pais": "Nepalese",
+        "nombre": "Rupees"
+    },
+    "NZD":     {
+        "pais": "New Zealand",
+        "nombre": "Dollars"
+    },
+    "OMR":     {
+        "pais": "Omani",
+        "nombre": "Rials"
+    },
+    "PEN":     {
+        "pais": "Peruvian",
+        "nombre": "Nuevos Soles"
+    },
+    "PGK":     {
+        "pais": "Papua New Guinean",
+        "nombre": "Kina"
+    },
+    "PHP":     {
+        "pais": "Philippine",
+        "nombre": "Pesos"
+    },
+    "PKR":     {
+        "pais": "Pakistan",
+        "nombre": "Rupees"
+    },
+    "PLN":     {
+        "pais": "Polish",
+        "nombre": "Zloty"
+    },
+    "PYG":     {
+        "pais": "Paraguayan",
+        "nombre": "Guaranies"
+    },
+    "QAR":     {
+        "pais": "Qatar",
+        "nombre": "Riyals"
+    },
+    "RON":     {
+        "pais": "Romanian",
+        "nombre": "Leu"
+    },
+    "RSD":     {
+        "pais": "Serbian",
+        "nombre": "Dinars"
+    },
+    "RUB":     {
+        "pais": "Russian",
+        "nombre": "Rubles"
+    },
+    "SAR":     {
+        "pais": "Saudi",
+        "nombre": "Riyals"
+    },
+    "SCR":     {
+        "pais": "Seychelles",
+        "nombre": "Rupees"
+    },
+    "SEK":     {
+        "pais": "Swedish",
+        "nombre": "Kronor"
+    },
+    "SGD":     {
+        "pais": "Singapore",
+        "nombre": "Dollars"
+    },
+    "SLL":     {
+        "pais": "Sierra Leonean",
+        "nombre": "Leones"
+    },
+    "SVC":     {
+        "pais": "Salvadoran",
+        "nombre": "Colones"
+    },
+    "THB":     {
+        "pais": "Thai",
+        "nombre": "Baht"
+    },
+    "TND":     {
+        "pais": "Tunisian",
+        "nombre": "Dinar"
+    },
+    "TRY":     {
+        "pais": "Turkish",
+        "nombre": "Liras"
+    },
+    "TTD":     {
+        "pais": "Trinidad",
+        "nombre": "Dollars"
+    },
+    "TWD":     {
+        "pais": "Taiwan",
+        "nombre": "Dollars"
+    },
+    "TZS":     {
+        "pais": "Tanzanian",
+        "nombre": "Shillings"
+    },
+    "UAH":     {
+        "pais": "Ukrainian",
+        "nombre": "Grivnas"
+    },
+    "UGX":     {
+        "pais": "Ugandan",
+        "nombre": "Shillings"
+    },
+    "USD":     {
+        "pais": "US",
+        "nombre": "Dollar"
+    },
+    "UYU":     {
+        "pais": "Uruguayan",
+        "nombre": "Pesos"
+    },
+    "UZS":     {
+        "pais": "Uzbekistani",
+        "nombre": "Sum"
+    },
+    "VEF":     {
+        "pais": "Venezuelan",
+        "nombre": "Bolivares Fuertes"
+    },
+    "VND":     {
+        "pais": "Vietnamese",
+        "nombre": "Dong"
+    },
+    "YER":     {
+        "pais": "Yemeni",
+        "nombre": "Rials"
+    },
+    "ZAR":     {
+        "pais": "South African",
+        "nombre": "Rands"
+    },
+    "ZMK":     {
+        "pais": "Zambia",
+        "nombre": "Kwacha"
+    }
+}
