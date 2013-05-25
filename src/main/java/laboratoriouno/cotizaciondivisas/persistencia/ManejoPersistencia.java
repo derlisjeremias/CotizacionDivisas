@@ -4,8 +4,13 @@
  */
 package laboratoriouno.cotizaciondivisas.persistencia;
 
+import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import laboratoriouno.cotizaciondivisas.modelo.Moneda;
+import laboratoriouno.cotizaciondivisas.modelo.Usuario;
 
 /**
  *
@@ -29,5 +34,21 @@ public class ManejoPersistencia {
 
     public CtrlPersistenciaMoneda getCtrlPersMoneda() {
         return ctrlPersMoneda;
+    }
+
+    public void verificarDatos() {
+        EntityManager em = this.ctrlPersUsuario.getEntityManager();
+
+        String see = "select u from Usuario as u";
+        TypedQuery<Usuario> query = em.createQuery(see, Usuario.class);
+
+        List<Usuario> lista = query.getResultList();
+        for (Usuario u : lista) {
+            System.out.println(u.toString());
+            for (Moneda m : u.getMisMonedas()) {
+                System.out.println("        id "+m.getId() + m.toString());
+            }
+        }
+
     }
 }

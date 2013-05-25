@@ -27,24 +27,29 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
     private AdministracionDivisasUsuarios modeloApp;
     private TablaCotizaciones conectorTablaCotizaciones;
     private TablaUsuarios conectorTablaUsuarios;
+    private ComboBoxDivisas conectorComboBoxDivisas;
     private String nombreUsuarioSeleccionado_tabAdmin = new String();
 
     /**
      * Creates new form FrameCotizacionDivisas
      */
-    public FrameCotizacionDivisas() {
+    public FrameCotizacionDivisas(AdministracionDivisasUsuarios app) {
+        this.modeloApp = app;
+
         initComponents();
+        /*this.conectorComboBoxDivisas = (ComboBoxDivisas) this.comboBoxDivisas_tabCotiza.getModel();
+         this.conectorComboBoxDivisas.addListDataListener(comboBoxDivisas_tabCotiza);*/
+
         this.conectorTablaCotizaciones = (TablaCotizaciones) this.tablaCotizaciones_tabCotiza.getModel();
         this.conectorTablaCotizaciones.addTableModelListener(this.tablaCotizaciones_tabCotiza);
+
         this.conectorTablaUsuarios = (TablaUsuarios) this.tablaUsuarios_tabAdmin.getModel();
         this.conectorTablaUsuarios.addTableModelListener(tablaUsuarios_tabAdmin);
-
-
-    }
-
-    public void asignarAplicacion(AdministracionDivisasUsuarios app) {
-        this.modeloApp = app;
         this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
+
+
+
+
     }
 
     /**
@@ -165,7 +170,8 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
 
         etiquetaUsuarioActivo_tabCotiza.setText("No se ha iniciado sesion");
 
-        comboBoxDivisas_tabCotiza.setModel(new ComboBoxDivisas());
+        comboBoxDivisas_tabCotiza.setMaximumRowCount(10);
+        comboBoxDivisas_tabCotiza.setModel(new ComboBoxDivisas(this.modeloApp));
 
         botonAgregar_tabCotiza.setText("Agregar moneda");
         botonAgregar_tabCotiza.addActionListener(new java.awt.event.ActionListener() {
@@ -346,11 +352,21 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
 
     private void botonAgregar_tabCotizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregar_tabCotizaActionPerformed
         Moneda monedaSeleccionada = (Moneda) this.comboBoxDivisas_tabCotiza.getSelectedItem();
+        this.modeloApp.agregarMonedaDeUsuario(monedaSeleccionada);
+
         MonedaCotizacion monedaParaInsertar = this.modeloApp.obtenerUnaCotizacion(monedaSeleccionada);
         this.conectorTablaCotizaciones.agregarCotizacion(monedaParaInsertar);
+        this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
     }//GEN-LAST:event_botonAgregar_tabCotizaActionPerformed
 
     private void botonEliminarUltima_tabCotizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarUltima_tabCotizaActionPerformed
+        if (this.modeloApp.sesionIniciada() && this.conectorTablaCotizaciones.getRowCount() > 0) {
+            int ultimaFila = this.conectorTablaCotizaciones.getRowCount() - 1;
+            String siglas = (String) this.conectorTablaCotizaciones.getValueAt(ultimaFila, 0);
+
+            this.modeloApp.eliminarMonedaDeUsuario(siglas);
+            this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
+        }
         this.conectorTablaCotizaciones.eliminarUltimaFila();
     }//GEN-LAST:event_botonEliminarUltima_tabCotizaActionPerformed
 
@@ -421,7 +437,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
     private void botonEliminar_tabAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminar_tabAdminActionPerformed
         if (this.tablaUsuarios_tabAdmin.getSelectedRow() > -1) {
             String nombre = (String) this.conectorTablaUsuarios.getValueAt(this.tablaUsuarios_tabAdmin.getSelectedRow(), 0);
-            int respuesta = JOptionPane.showConfirmDialog(this, "¿Realmente desea eliminar \n al usuario " + nombre + "?", "Confirme eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int respuesta = JOptionPane.showConfirmDialog(this.botonEliminar_tabAdmin, "¿Realmente desea eliminar \n al usuario " + nombre + "?", "Confirme eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION) {
                 Usuario u = this.modeloApp.obtenerUsuario(nombre);
                 this.modeloApp.eliminarUsuario(u);
@@ -437,14 +453,14 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
             String nombreModificado = this.campoNombreUsuario_tabAdmin.getText();
             String nuevaClave = this.campoClaveAcceso_tabAdmin.getText();
 
-            int respuesta = JOptionPane.showConfirmDialog(this, "¿Realmente desea actualizar \n datos del usuario " + nombreOriginal + "?", "Confirme actualización", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int respuesta = JOptionPane.showConfirmDialog(this.botonActualizar_tabAdmin, "¿Realmente desea actualizar \n datos del usuario " + nombreOriginal + "?", "Confirme actualización", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (respuesta == JOptionPane.YES_OPTION) {
                 Usuario u = this.modeloApp.obtenerUsuario(nombreOriginal);
                 if (!nombreOriginal.equals(nombreModificado)) {
-                    u.setNombre(nombreModificado);
+                    this.modeloApp.modificarNombreUsuario(u, nombreModificado);
                 }
                 if (!nuevaClave.equals("*****")) {
-                    u.modificarClaveAcceso(nuevaClave);
+                    this.modeloApp.modificarClaveUsuario(u, nuevaClave);
                 }
                 this.conectorTablaUsuarios.cargarUsuarios(modeloApp);
             }
@@ -515,7 +531,7 @@ public class FrameCotizacionDivisas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameCotizacionDivisas().setVisible(true);
+                //   new FrameCotizacionDivisas().setVisible(true);
             }
         });
     }

@@ -1,9 +1,6 @@
 package laboratoriouno.cotizaciondivisas;
 
-import javax.swing.UIManager;
 import laboratoriouno.cotizaciondivisas.modelo.AdministracionDivisasUsuarios;
-import laboratoriouno.cotizaciondivisas.modelo.Moneda;
-import laboratoriouno.cotizaciondivisas.modelo.Usuario;
 
 
 /**
@@ -13,9 +10,9 @@ import laboratoriouno.cotizaciondivisas.modelo.Usuario;
 public class App {
 
     public static void main(String[] args) {
-        EntornoGrafico.seleccionarWindows();
-        
-      /*  Usuario usuario = new Usuario("A");
+       EntornoGrafico.seleccionarWindows();
+        /* 
+        Usuario usuario = new Usuario("A");
         usuario.setClaveAcceso("a");
         Moneda mA = new Moneda("CUP", "Cuban Peso");
         Moneda mB = new Moneda("LBP", "Lebanese Pound");
@@ -29,8 +26,8 @@ public class App {
 
         AdministracionDivisasUsuarios modelo = new AdministracionDivisasUsuarios();
         //modelo.agregarUsuario(usuario);
-        FrameCotizacionDivisas aplicacion = new FrameCotizacionDivisas();
-        aplicacion.asignarAplicacion(modelo);
+        FrameCotizacionDivisas aplicacion = new FrameCotizacionDivisas(modelo);
+
 
         aplicacion.setVisible(true);
 

@@ -5,6 +5,7 @@
 package laboratoriouno.cotizaciondivisas.modelo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,10 +21,10 @@ import laboratoriouno.cotizaciondivisas.persistencia.NoExisteEntidadException;
  */
 public class AdministracionDivisasUsuarios {
 
-    private ManejoPersistencia persistencia = null;
-    private List<Moneda> monedas = new ArrayList();
-    private List<MonedaCotizacion> cotizacionMonedas = new ArrayList();
-    private List<Usuario> usuarios = new ArrayList();
+    private ManejoPersistencia persistencia;
+    private List<Moneda> monedas;
+    private List<MonedaCotizacion> cotizacionMonedas;
+    private List<Usuario> usuarios;
     private Usuario usuarioActivo = null;
     private CapturaRemotaDivisas informacionDivisas = new CapturaRemotaDivisasOpenExchange();
 
@@ -140,6 +141,28 @@ public class AdministracionDivisasUsuarios {
         this.usuarioActivo = null;
     }
 
+    public void modificarNombreUsuario(Usuario u, String n) {
+        try {
+            CtrlPersistenciaUsuario cpu = this.persistencia.getCtrlPersUsuario();
+            u.setNombre(n);
+            cpu.editar(u);
+        } catch (Exception ex) {
+            Logger.getLogger(AdministracionDivisasUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void modificarClaveUsuario(Usuario u, String c) {
+        try {
+            CtrlPersistenciaUsuario cpu = this.persistencia.getCtrlPersUsuario();
+            u.modificarClaveAcceso(c);
+            cpu.editar(u);
+        } catch (Exception ex) {
+            Logger.getLogger(AdministracionDivisasUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }
+
     public void eliminarUsuario(Usuario u) {
         if (this.usuarios.contains(u)) {
             this.usuarios.remove(u);
@@ -182,9 +205,33 @@ public class AdministracionDivisasUsuarios {
     }
 
     public void agregarMonedaDeUsuario(Moneda m) {
+        if (this.sesionIniciada()) {
+            try {
+                Moneda nuevaMoneda = new Moneda();
+                nuevaMoneda.setSiglas(m.getSiglas());
+                nuevaMoneda.setDescripcion(m.getDescripcion());
+                nuevaMoneda.setUsuario(this.usuarioActivo);
+                this.usuarioActivo.agregarMoneda(nuevaMoneda);
+
+                CtrlPersistenciaMoneda cpm = this.persistencia.getCtrlPersMoneda();
+                cpm.crear(nuevaMoneda);
+            } catch (Exception ex) {
+                Logger.getLogger(AdministracionDivisasUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void eliminarMonedaDeUsuario(String siglas) {
         if (sesionIniciada()) {
-            this.usuarioActivo.agregarMoneda(m);
-            m.setUsuario(usuarioActivo);
+            int largo = this.usuarioActivo.getMisMonedas().size() - 1;
+            for (int i = largo; i >= 0; i--) {
+                Moneda m = this.usuarioActivo.getMisMonedas().get(i);
+                if (siglas.equals(m.getSiglas())) {
+                    this.eliminarMonedaDeUsuario(m);
+                    break;
+                }
+            }
+
         }
     }
 

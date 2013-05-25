@@ -4,6 +4,7 @@
  */
 package laboratoriouno.cotizaciondivisas.persistencia;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
@@ -13,7 +14,7 @@ import laboratoriouno.cotizaciondivisas.modelo.Moneda;
  *
  * @author Jere
  */
-public class CtrlPersistenciaMoneda {
+public class CtrlPersistenciaMoneda implements Serializable{
 
     private EntityManagerFactory emf = null;
 

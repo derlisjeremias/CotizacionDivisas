@@ -5,6 +5,7 @@
 package laboratoriouno.cotizaciondivisas.conector;
 
 import java.util.List;
+import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import laboratoriouno.cotizaciondivisas.modelo.*;
 
@@ -14,14 +15,14 @@ import laboratoriouno.cotizaciondivisas.modelo.*;
  */
 public class ComboBoxDivisas implements javax.swing.ComboBoxModel {
 
-    private CapturaRemotaDivisas servidorDatos = new CapturaRemotaDivisasGoogleFinance();
+   private AdministracionDivisasUsuarios modeloApp;
+    // private CapturaRemotaDivisas servidorDatos = new CapturaRemotaDivisasGoogleFinance();
     private Moneda monedaSeleccionada;
-    private List<Moneda> listaMonedas = null;
+    private List<Moneda> listaMonedas;
 
-    public ComboBoxDivisas() {
-        if (this.listaMonedas == null) {
-            this.listaMonedas = this.servidorDatos.obtenerDatosMonedas();
-        }
+    public ComboBoxDivisas(AdministracionDivisasUsuarios app) {
+        this.modeloApp = app;
+        this.listaMonedas = this.modeloApp.getMonedas();
         this.monedaSeleccionada = listaMonedas.get(0);
     }
 

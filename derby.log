@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Fri May 24 16:19:44 ART 2013:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-013e-d7fb-8377-000002be5678 
-on database directory E:\Usuarios\Jere\Mis documentos\NetBeansProjects\CotizacionDivisas\CotizacionDivisas_db  with class loader sun.misc.Launcher$AppClassLoader@6d9bf996 
+Sat May 25 03:48:12 ART 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.9.1.0 - (1344872): instance a816c00e-013e-da71-d1f5-000002bd0b58 
+on database directory E:\Usuarios\Jere\Mis documentos\NetBeansProjects\CotizacionDivisas\CotizacionDivisas_db  with class loader sun.misc.Launcher$AppClassLoader@1b1f1f12 
 Loaded from file:/C:/Users/Jere/.m2/repository/org/apache/derby/derby/10.9.1.0/derby-10.9.1.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.7.0_17-b02

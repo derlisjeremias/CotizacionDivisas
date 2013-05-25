@@ -4,6 +4,7 @@
  */
 package laboratoriouno.cotizaciondivisas.persistencia;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
@@ -13,7 +14,7 @@ import laboratoriouno.cotizaciondivisas.modelo.Usuario;
  *
  * @author Jere
  */
-public class CtrlPersistenciaUsuario {
+public class CtrlPersistenciaUsuario implements Serializable{
 
     private EntityManagerFactory emf = null;
 

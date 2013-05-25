@@ -27,6 +27,7 @@ public class Moneda implements Serializable {
     }
 
     public Moneda(String unaSigla, String unaDescripcion) {
+        this.id = (long)-1;
         this.siglas = unaSigla;
         this.descripcion = unaDescripcion;
     }
@@ -80,6 +81,9 @@ public class Moneda implements Serializable {
         }
         final Moneda other = (Moneda) obj;
         if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        if ((this.siglas == null) ? (other.siglas != null) : !this.siglas.equals(other.siglas)) {
             return false;
         }
         return true;
