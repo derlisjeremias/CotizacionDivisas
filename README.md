@@ -1,4 +1,14 @@
-CotizacionDivisas
-=================
+IMPORTANTE
+==========
 
-Los archivos ico.png y MonedasAceptadasPorGoogleFinance.json que se encuentran en /src/ deben estar en la subcarpeta de /target/ donde se crean los archivos *.class para que sean hallados por la aplicacion
+En la carpeta /src/ se encuentran los archivos ico.png y MonedasAceptadasPorGoogleFinance.json que deben ser movidos para que sean hallados por la aplicación
+
+ico.png mover a
+              /target/classes/laboratoriouno/cotizaciondivisas/
+              
+MonedasAceptadasPorGoogleFinance.json mover a
+            /target/classes/laboratoriouno/cotizaciondivisas/modelo/
+
+
+
+
